@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Nike vs Adidas — Digital Channel Analysis | Shama Praveen</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --black: #0A0A0A;
+  --off-black: #111214;
+  --panel: #161718;
+  --panel-light: #1E2022;
+  --border: rgba(255,255,255,0.07);
+  --border-bright: rgba(255,255,255,0.14);
+  --text: #F0EEE8;
+  --muted: #8A8880;
+  --hint: #555250;
+  --nike: #FA5400;
+  --adidas: #00A3FF;
+  --accent: #D4F04C;
+  --accent2: #FF4F6D;
+  --white: #ffffff;
+  --mono: 'DM Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Syne', sans-serif;
+  background: var(--black);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Subtle grid background */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2.5rem; height: 58px;
+  background: rgba(10,10,10,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 0.5px solid var(--border);
+}
+
+.nav-left {
+  display: flex; align-items: center; gap: 1.5rem;
+}
+
+.nav-badge {
+  font-family: var(--mono);
+  font-size: 10px; color: var(--accent);
+  border: 0.5px solid var(--accent);
+  padding: 3px 8px; border-radius: 3px;
+  letter-spacing: 0.08em;
+}
+
+.nav-title {
+  font-size: 13px; font-weight: 500; color: var(--muted);
+}
+
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a {
+  font-size: 12px; font-weight: 500; color: var(--hint);
+  text-decoration: none; letter-spacing: 0.04em;
+  text-transform: uppercase; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--text); }
+
+/* ── HERO ── */
+.hero {
+  position: relative; z-index: 1;
+  padding: 140px 2.5rem 80px;
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 420px; gap: 4rem; align-items: end;
+}
+
+.hero-kicker {
+  font-family: var(--mono);
+  font-size: 11px; color: var(--accent);
+  letter-spacing: 0.12em; text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  display: flex; align-items: center; gap: 10px;
+}
+.hero-kicker::before {
+  content: ''; display: block;
+  width: 24px; height: 1px; background: var(--accent);
+}
+
+.hero h1 {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(42px, 5.5vw, 72px);
+  font-weight: 400; line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  margin-bottom: 1.5rem;
+}
+
+.hero h1 em {
+  font-style: italic; color: var(--muted);
+}
+
+.hero-desc {
+  font-size: 15px; font-weight: 400; color: var(--muted);
+  line-height: 1.8; max-width: 480px; margin-bottom: 2.5rem;
+}
+
+.hero-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.hero-tag {
+  font-family: var(--mono);
+  font-size: 10.5px; color: var(--hint);
+  border: 0.5px solid var(--border-bright);
+  padding: 5px 12px; border-radius: 3px;
+  letter-spacing: 0.06em;
+}
+
+/* Hero right panel */
+.hero-panel {
+  background: var(--panel);
+  border: 0.5px solid var(--border-bright);
+  border-radius: 16px; padding: 1.75rem;
+  position: relative; overflow: hidden;
+}
+
+.hero-panel::before {
+  content: '';
+  position: absolute; top: -60px; right: -60px;
+  width: 200px; height: 200px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(250,84,0,0.12) 0%, transparent 70%);
+}
+
+.hp-label {
+  font-family: var(--mono); font-size: 9.5px;
+  color: var(--hint); letter-spacing: 0.1em; text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.hp-stat-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 0.85rem 0; border-bottom: 0.5px solid var(--border);
+}
+.hp-stat-row:last-child { border-bottom: none; }
+
+.hp-stat-label { font-size: 12px; color: var(--muted); font-weight: 400; }
+.hp-stat-val { font-family: var(--mono); font-size: 13px; color: var(--text); }
+.hp-stat-val.nike { color: var(--nike); }
+.hp-stat-val.adidas { color: var(--adidas); }
+
+/* ── CONTENT WRAPPER ── */
+.content { max-width: 1100px; margin: 0 auto; padding: 0 2.5rem 6rem; position: relative; z-index: 1; }
+
+/* ── DIVIDER ── */
+.divider {
+  display: flex; align-items: center; gap: 1rem;
+  margin: 3rem 0 2rem;
+}
+.divider-line { flex: 1; height: 0.5px; background: var(--border); }
+.divider-label {
+  font-family: var(--mono); font-size: 10px;
+  color: var(--hint); letter-spacing: 0.12em; text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* ── METRICS ROW ── */
+.metrics-row {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 12px; margin-bottom: 3rem;
+}
+
+.metric-card {
+  background: var(--panel);
+  border: 0.5px solid var(--border);
+  border-radius: 12px; padding: 1.25rem 1.5rem;
+  position: relative; overflow: hidden;
+}
+
+.metric-card::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 2px;
+}
+.metric-card.nike-accent::after { background: var(--nike); }
+.metric-card.adidas-accent::after { background: var(--adidas); }
+.metric-card.accent-y::after { background: var(--accent); }
+.metric-card.accent-p::after { background: var(--accent2); }
+
+.metric-num {
+  font-family: 'Instrument Serif', serif;
+  font-size: 36px; font-weight: 400; color: var(--white);
+  line-height: 1; margin-bottom: 6px; display: block;
+}
+.metric-label {
+  font-family: var(--mono); font-size: 10px;
+  color: var(--hint); letter-spacing: 0.08em; text-transform: uppercase;
+}
+
+/* ── BRAND COMPARISON ── */
+.brand-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 3rem;
+}
+
+.brand-panel {
+  background: var(--panel); border: 0.5px solid var(--border);
+  border-radius: 16px; overflow: hidden;
+}
+
+.brand-header {
+  padding: 1.5rem 1.75rem 1.25rem;
+  border-bottom: 0.5px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+.brand-logo-area { display: flex; align-items: center; gap: 14px; }
+
+.brand-icon {
+  width: 40px; height: 40px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; font-weight: 800; flex-shrink: 0;
+}
+.brand-icon.nike { background: rgba(250,84,0,0.15); color: var(--nike); }
+.brand-icon.adidas { background: rgba(0,163,255,0.12); color: var(--adidas); }
+
+.brand-title { font-size: 18px; font-weight: 700; color: var(--white); }
+.brand-sub { font-family: var(--mono); font-size: 10px; color: var(--hint); margin-top: 2px; }
+
+.ovp-pill {
+  font-family: var(--mono); font-size: 10px;
+  padding: 4px 10px; border-radius: 20px;
+  white-space: nowrap;
+}
+.ovp-pill.nike { background: rgba(250,84,0,0.12); color: var(--nike); border: 0.5px solid rgba(250,84,0,0.25); }
+.ovp-pill.adidas { background: rgba(0,163,255,0.1); color: var(--adidas); border: 0.5px solid rgba(0,163,255,0.2); }
+
+.brand-body { padding: 1.25rem 1.75rem; }
+
+.brand-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 8px 0; border-bottom: 0.5px solid var(--border);
+  font-size: 13px;
+}
+.brand-row:last-child { border-bottom: none; }
+.brand-key { color: var(--hint); font-weight: 400; }
+.brand-val { color: var(--text); font-weight: 500; text-align: right; }
+
+.chip {
+  font-family: var(--mono); font-size: 10px;
+  padding: 3px 8px; border-radius: 4px; font-weight: 400;
+}
+.chip-green { background: rgba(59,109,17,0.2); color: #8DBE55; border: 0.5px solid rgba(141,190,85,0.25); }
+.chip-amber { background: rgba(133,79,11,0.2); color: #E0A855; border: 0.5px solid rgba(224,168,85,0.25); }
+.chip-blue { background: rgba(0,163,255,0.1); color: var(--adidas); border: 0.5px solid rgba(0,163,255,0.2); }
+.chip-orange { background: rgba(250,84,0,0.12); color: var(--nike); border: 0.5px solid rgba(250,84,0,0.2); }
+
+/* ── FRAMEWORKS ── */
+.fw-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 12px; margin-bottom: 3rem;
+}
+
+.fw-card {
+  background: var(--panel); border: 0.5px solid var(--border);
+  border-radius: 12px; padding: 1.5rem;
+  transition: border-color 0.2s;
+}
+.fw-card:hover { border-color: var(--border-bright); }
+
+.fw-number {
+  font-family: var(--mono); font-size: 10px;
+  color: var(--hint); margin-bottom: 1rem;
+  display: flex; align-items: center; gap: 8px;
+}
+.fw-number::before {
+  content: '';
+  display: block; width: 16px; height: 0.5px; background: var(--hint);
+}
+
+.fw-icon-box {
+  width: 42px; height: 42px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; margin-bottom: 1rem;
+}
+
+.fw-title {
+  font-size: 14px; font-weight: 700; color: var(--white); margin-bottom: 6px;
+}
+
+.fw-sub {
+  font-family: var(--mono); font-size: 9.5px; color: var(--accent);
+  letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px;
+}
+
+.fw-desc { font-size: 12.5px; color: var(--muted); line-height: 1.7; }
+
+/* ── SCORE CHART ── */
+.score-section {
+  background: var(--panel); border: 0.5px solid var(--border);
+  border-radius: 16px; padding: 2rem 2.5rem; margin-bottom: 3rem;
+}
+
+.score-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.score-title { font-size: 16px; font-weight: 700; color: var(--white); }
+.score-subtitle { font-family: var(--mono); font-size: 10px; color: var(--hint); margin-top: 4px; }
+
+.score-legend {
+  display: flex; gap: 1.5rem;
+}
+.legend-item {
+  display: flex; align-items: center; gap: 7px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted);
+}
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+.score-criteria { display: flex; flex-direction: column; gap: 1.5rem; }
+
+.score-criterion { }
+
+.criterion-label {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 8px;
+}
+.criterion-name { font-size: 13px; font-weight: 600; color: var(--text); }
+.criterion-winner {
+  font-family: var(--mono); font-size: 9.5px;
+  padding: 2px 8px; border-radius: 3px;
+}
+.winner-nike { background: rgba(250,84,0,0.12); color: var(--nike); }
+.winner-adidas { background: rgba(0,163,255,0.1); color: var(--adidas); }
+.winner-tie { background: rgba(212,240,76,0.1); color: var(--accent); }
+
+.bars-pair { display: flex; flex-direction: column; gap: 5px; }
+
+.bar-row { display: flex; align-items: center; gap: 12px; }
+.bar-brand {
+  font-family: var(--mono); font-size: 10px;
+  color: var(--hint); width: 50px; flex-shrink: 0;
+}
+.bar-track {
+  flex: 1; height: 6px; background: rgba(255,255,255,0.05);
+  border-radius: 3px; overflow: hidden;
+}
+.bar-fill {
+  height: 100%; border-radius: 3px;
+  transition: width 1s ease;
+}
+.bar-fill.nike { background: linear-gradient(90deg, #FA5400, #FF7A30); }
+.bar-fill.adidas { background: linear-gradient(90deg, #0080CC, #00A3FF); }
+.bar-score {
+  font-family: var(--mono); font-size: 10.5px;
+  color: var(--muted); width: 28px; text-align: right; flex-shrink: 0;
+}
+
+/* ── SWOT ── */
+.swot-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 3rem;
+}
+
+.swot-card {
+  background: var(--panel); border: 0.5px solid var(--border);
+  border-radius: 12px; padding: 1.5rem;
+}
+
+.swot-header {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 1rem;
+}
+
+.swot-letter {
+  width: 36px; height: 36px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 800; flex-shrink: 0;
+  font-family: 'Instrument Serif', serif;
+}
+
+.swot-title { font-size: 14px; font-weight: 700; color: var(--white); }
+.swot-subtitle { font-family: var(--mono); font-size: 9.5px; color: var(--hint); }
+
+.swot-items { display: flex; flex-direction: column; gap: 6px; }
+
+.swot-item {
+  display: flex; align-items: flex-start; gap: 8px;
+  font-size: 12.5px; color: var(--muted); line-height: 1.55;
+}
+.swot-item::before {
+  content: '→'; flex-shrink: 0; font-size: 11px; margin-top: 1px;
+  font-family: var(--mono);
+}
+
+/* ── RECOMMENDATIONS ── */
+.recs { display: flex; flex-direction: column; gap: 12px; margin-bottom: 3rem; }
+
+.rec-card {
+  background: var(--panel); border: 0.5px solid var(--border);
+  border-radius: 12px; padding: 1.5rem 1.75rem;
+  display: grid; grid-template-columns: auto 1fr auto;
+  gap: 1.5rem; align-items: center;
+  transition: border-color 0.2s;
+}
+.rec-card:hover { border-color: var(--border-bright); }
+
+.rec-num {
+  font-family: 'Instrument Serif', serif;
+  font-size: 28px; font-weight: 400; color: var(--hint);
+  line-height: 1;
+}
+
+.rec-title { font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 5px; }
+.rec-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+.rec-impact {
+  text-align: right; white-space: nowrap;
+}
+.rec-impact-label {
+  font-family: var(--mono); font-size: 9px; color: var(--hint);
+  text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px;
+}
+.rec-impact-val {
+  font-family: var(--mono); font-size: 13px; font-weight: 400;
+}
+
+/* ── TOOLS USED ── */
+.tools-row {
+  display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 3rem;
+}
+
+.tool-chip {
+  background: var(--panel); border: 0.5px solid var(--border);
+  border-radius: 8px; padding: 10px 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+.tool-icon { font-size: 16px; }
+.tool-name { font-size: 13px; font-weight: 600; color: var(--text); }
+.tool-type { font-family: var(--mono); font-size: 10px; color: var(--hint); display: block; }
+
+/* ── CONCLUSION ── */
+.conclusion {
+  background: var(--panel); border: 0.5px solid var(--border-bright);
+  border-radius: 16px; padding: 2.5rem; margin-bottom: 3rem;
+  position: relative; overflow: hidden;
+}
+
+.conclusion::before {
+  content: '';
+  position: absolute; top: -80px; right: -80px;
+  width: 300px; height: 300px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(212,240,76,0.05) 0%, transparent 70%);
+}
+
+.conclusion-kicker {
+  font-family: var(--mono); font-size: 10px; color: var(--accent);
+  letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem;
+}
+
+.conclusion-text {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(18px, 2.2vw, 24px); font-weight: 400;
+  color: var(--text); line-height: 1.6; font-style: italic;
+}
+
+/* ── TEAM ── */
+.team-row {
+  display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 3rem;
+}
+
+.member-card {
+  background: var(--panel); border: 0.5px solid var(--border);
+  border-radius: 10px; padding: 1rem 1.25rem;
+  display: flex; align-items: center; gap: 12px; flex: 1; min-width: 200px;
+}
+
+.avatar {
+  width: 42px; height: 42px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; flex-shrink: 0;
+  font-family: 'Instrument Serif', serif;
+}
+
+.member-name { font-size: 14px; font-weight: 600; color: var(--white); }
+.member-id { font-family: var(--mono); font-size: 10px; color: var(--hint); margin-top: 2px; }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 0.5px solid var(--border);
+  padding: 1.5rem 2.5rem;
+  display: flex; justify-content: space-between; align-items: center;
+  max-width: 1100px; margin: 0 auto;
+  position: relative; z-index: 1;
+}
+
+.footer-left { font-family: var(--mono); font-size: 11px; color: var(--hint); }
+.footer-right { font-family: var(--mono); font-size: 11px; color: var(--hint); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-kicker { animation: fadeUp 0.5s ease both; }
+.hero h1 { animation: fadeUp 0.5s 0.1s ease both; }
+.hero-desc { animation: fadeUp 0.5s 0.2s ease both; }
+.hero-tags { animation: fadeUp 0.5s 0.3s ease both; }
+.hero-panel { animation: fadeUp 0.5s 0.15s ease both; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  nav { padding: 0 1.25rem; }
+  .nav-links { display: none; }
+  .hero { grid-template-columns: 1fr; padding: 100px 1.5rem 60px; gap: 2.5rem; }
+  .content { padding: 0 1.5rem 4rem; }
+  .metrics-row { grid-template-columns: repeat(2, 1fr); }
+  .brand-grid { grid-template-columns: 1fr; }
+  .fw-grid { grid-template-columns: 1fr 1fr; }
+  .swot-grid { grid-template-columns: 1fr; }
+  .rec-card { grid-template-columns: auto 1fr; }
+  .rec-impact { display: none; }
+  footer { flex-direction: column; gap: 0.5rem; padding: 1.25rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-left">
+    <span class="nav-badge">Digital Analysis</span>
+    <span class="nav-title">Nike vs Adidas</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#brands">Brands</a></li>
+    <li><a href="#scores">Scores</a></li>
+    <li><a href="#recs">Recommendations</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="overview">
+  <div>
+    <div class="hero-kicker">Digital Channel Analysis Report</div>
+    <h1>Nike <em>vs</em><br/>Adidas</h1>
+    <p class="hero-desc">
+      A strategic evaluation of two global sportswear giants' digital ecosystems — examining websites, mobile apps, and social media presence through rigorous academic and industry frameworks to surface actionable insights for Nike's digital future.
+    </p>
+    <div class="hero-tags">
+      <span class="hero-tag">e-SERVQUAL</span>
+      <span class="hero-tag">WebQual</span>
+      <span class="hero-tag">MSQ</span>
+      <span class="hero-tag">SWOT</span>
+      <span class="hero-tag">OVP</span>
+      <span class="hero-tag">SEMrush</span>
+      <span class="hero-tag">SimilarWeb</span>
+    </div>
+  </div>
+
+  <div class="hero-panel">
+    <div class="hp-label">At a glance</div>
+    <div class="hp-stat-row">
+      <span class="hp-stat-label">Nike Instagram Followers</span>
+      <span class="hp-stat-val nike">308M+</span>
+    </div>
+    <div class="hp-stat-row">
+      <span class="hp-stat-label">Nike App Rating (iOS)</span>
+      <span class="hp-stat-val nike">4.8 ★</span>
+    </div>
+    <div class="hp-stat-row">
+      <span class="hp-stat-label">Nike DTC Revenue Share</span>
+      <span class="hp-stat-val nike">&gt; 40%</span>
+    </div>
+    <div class="hp-stat-row">
+      <span class="hp-stat-label">Adidas Digital Investment</span>
+      <span class="hp-stat-val adidas">€1B+</span>
+    </div>
+    <div class="hp-stat-row">
+      <span class="hp-stat-label">Nike.com Monthly Visits</span>
+      <span class="hp-stat-val nike">116.6M</span>
+    </div>
+    <div class="hp-stat-row">
+      <span class="hp-stat-label">Nike.com Bounce Rate</span>
+      <span class="hp-stat-val" style="color:var(--muted);">40.22%</span>
+    </div>
+    <div class="hp-stat-row">
+      <span class="hp-stat-label">Channels Evaluated</span>
+      <span class="hp-stat-val" style="color:var(--accent);">3</span>
+    </div>
+    <div class="hp-stat-row">
+      <span class="hp-stat-label">Frameworks Applied</span>
+      <span class="hp-stat-val" style="color:var(--accent);">4</span>
+    </div>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- METRICS -->
+  <div class="metrics-row">
+    <div class="metric-card nike-accent">
+      <span class="metric-num">308M</span>
+      <span class="metric-label">Nike Instagram Followers</span>
+    </div>
+    <div class="metric-card accent-y">
+      <span class="metric-num">116.6M</span>
+      <span class="metric-label">Nike.com Monthly Visits</span>
+    </div>
+    <div class="metric-card accent-p">
+      <span class="metric-num">4.8★</span>
+      <span class="metric-label">Nike App iOS Rating</span>
+    </div>
+    <div class="metric-card nike-accent">
+      <span class="metric-num">40%+</span>
+      <span class="metric-label">Nike DTC Revenue Share</span>
+    </div>
+  </div>
+
+  <!-- EXECUTIVE SUMMARY -->
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-label">01 — Executive Summary</div>
+    <div class="divider-line"></div>
+  </div>
+
+  <div style="background:var(--panel);border:0.5px solid var(--border);border-radius:16px;padding:2rem 2.5rem;margin-bottom:3rem;">
+    <p style="font-size:15px;line-height:1.85;color:var(--muted);max-width:780px;">
+      This report presents a strategic digital channel analysis of <strong style="color:var(--white);">Nike</strong> benchmarked against its primary competitor <strong style="color:var(--white);">Adidas</strong>, commissioned as a digital marketing consulting engagement. Drawing on the <strong style="color:var(--text);">e-SERVQUAL, WebQual, MSQ,</strong> and <strong style="color:var(--text);">OVP</strong> frameworks alongside real-time data from SEMrush and SimilarWeb, the analysis evaluates both brands across corporate websites, mobile application ecosystems, and social media channels.
+    </p>
+    <p style="font-size:15px;line-height:1.85;color:var(--muted);max-width:780px;margin-top:1rem;">
+      Nike demonstrates <strong style="color:var(--nike);">superior technical performance</strong>, omnichannel integration, app ecosystem maturity, and personalisation infrastructure. Adidas leads in <strong style="color:var(--adidas);">emotional storytelling</strong>, sustainability positioning, and Gen Z cultural relevance on emerging platforms. Strategic recommendations focus on AI-driven personalisation at scale and community-led UGC campaigns to consolidate Nike's digital advantage.
+    </p>
+  </div>
+
+  <!-- BRAND COMPARISON -->
+  <div class="divider" id="brands">
+    <div class="divider-line"></div>
+    <div class="divider-label">02 — Brand Digital Profiles</div>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="brand-grid">
+    <!-- Nike -->
+    <div class="brand-panel">
+      <div class="brand-header">
+        <div class="brand-logo-area">
+          <div class="brand-icon nike">✓</div>
+          <div>
+            <div class="brand-title">Nike</div>
+            <div class="brand-sub">Global digital leader · DTC-first</div>
+          </div>
+        </div>
+        <span class="ovp-pill nike">Empower Every Athlete</span>
+      </div>
+      <div class="brand-body">
+        <div class="brand-row">
+          <span class="brand-key">Website</span>
+          <span class="brand-val"><span class="chip chip-green">Best-in-class UX</span></span>
+        </div>
+        <div class="brand-row">
+          <span class="brand-key">Mobile Apps</span>
+          <span class="brand-val">Nike App · SNKRS · NTC · NRC</span>
+        </div>
+        <div class="brand-row">
+          <span class="brand-key">App Rating</span>
+          <span class="brand-val"><span class="chip chip-green">4.8 iOS · 4.6 Android</span></span>
+        </div>
+        <div class="brand-row">
+          <span class="brand-key">Key Innovation</span>
+          <span class="brand-val">Nike Fit (AI AR sizing)</span>
+        </div>
+        <div class="brand-row">
+          <span class="brand-key">Personalisation</span>
+          <span class="brand-val"><span class="chip chip-green">Advanced</span></span>
+        </div>
+        <div class="brand-row">
+          <span class="brand-key">Community</span>
+          <span class="brand-val">NRC challenges, Sam Kerr, LeBron</span>
+        </div>
+        <div class="brand-row">
+          <span class="brand-key">Sustainability</span>
+          <span class="brand-val"><span class="chip chip-amber">Moderate</span></span>
+        </div>
+        <div class="brand-row">
+          <span class="brand-key">Gen Z Appeal</span>
+          <span class="brand-val"><span class="chip chip-amber">Improving</span></span>
+        </div>
+        <div class="brand-row">
+          <span class="brand-key">SEO Strength</span>
+          <span class="brand-val">High-volume keywords (running shoes)</span>
+        </div>
+        <div class="brand-row">
+          <span class="brand-key">Notable Weakness</span>
+          <span class="brand-val">AR/VR less advanced than Adidas</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Adidas -->
+    <div class="brand-panel">
+      <div class="brand-header">
+        <div class="brand-logo-area">
+          <div class="brand-icon adidas" style="font-size:13px;">▲▲▲</div>
+          <div>
+            <div class="brand-title">Adidas</div>
+            <div class="brand-sub">Sustainability-led · Culture-first</div>
+          </div>
+        </div>
+        <span class="ovp-pill adidas">Athletic Identity</span>
+      </div>
+      <div class="brand-body">
+        <div class="brand-row">
+          <span class="brand-key">Website</span>
+          <span class="brand-val"><span class="chip chip-blue">Minimal · Mobile-first</span></span>
+        </div>
+        <div class="brand-row">
+          <span class="brand-key">Mobile Apps</span>
+          <span class="brand-val">Adidas · Running · Training</span>
+        </div>
+        <div class="brand-row">
+          <span class="brand-key">App Rating</span>
+          <span class="brand-val"><span class="chip chip-amber">Mixed (crash reports)</span></span>
+        </div>
+        <div class="brand-row">
+          <span class="brand-key">Key Innovation</span>
+          <span class="brand-val">AR Try-On · AI Stylist Tool</span>
+        </div>
+        <div class="brand-row">
+          <span class="brand-key">Personalisation</span>
+          <span class="brand-val"><span class="chip chip-blue">Developing</span></span>
+        </div>
+        <div class="brand-row">
+          <span class="brand-key">Community</span>
+          <span class="brand-val">Creators Club · Run for Oceans</span>
+        </div>
+        <div class="brand-row">
+          <span class="brand-key">Sustainability</span>
+          <span class="brand-val"><span class="chip chip-green">Industry-leading</span></span>
+        </div>
+        <div class="brand-row">
+          <span class="brand-key">Gen Z Appeal</span>
+          <span class="brand-val"><span class="chip chip-green">Strong (TikTok)</span></span>
+        </div>
+        <div class="brand-row">
+          <span class="brand-key">SEO Strength</span>
+          <span class="brand-val">Niche (eco-friendly, sustainability)</span>
+        </div>
+        <div class="brand-row">
+          <span class="brand-key">Notable Weakness</span>
+          <span class="brand-val">App fragmentation (split ecosystem)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FRAMEWORKS -->
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-label">03 — Analysis Frameworks</div>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="fw-grid">
+    <div class="fw-card">
+      <div class="fw-number">01</div>
+      <div class="fw-icon-box" style="background:rgba(250,84,0,0.1);">📊</div>
+      <div class="fw-title">e-SERVQUAL</div>
+      <div class="fw-sub">Zeithaml et al., 2000</div>
+      <div class="fw-desc">Evaluates digital service quality across efficiency, reliability, fulfilment, privacy, and responsiveness — applied to both brands' e-commerce platforms and mobile apps.</div>
+    </div>
+    <div class="fw-card">
+      <div class="fw-number">02</div>
+      <div class="fw-icon-box" style="background:rgba(0,163,255,0.1);">🖥️</div>
+      <div class="fw-title">WebQual</div>
+      <div class="fw-sub">Loiacono et al., 2007</div>
+      <div class="fw-desc">Assesses website usability, information quality, and service interaction. Key for evaluating navigation, search, trust signals, and product display standards.</div>
+    </div>
+    <div class="fw-card">
+      <div class="fw-number">03</div>
+      <div class="fw-icon-box" style="background:rgba(212,240,76,0.08);">📱</div>
+      <div class="fw-title">MSQ Framework</div>
+      <div class="fw-sub">Wang et al., 2019</div>
+      <div class="fw-desc">Mobile Service Quality — measures usability, interactivity, value-added services, and security across both brands' app ecosystems on iOS and Android.</div>
+    </div>
+    <div class="fw-card">
+      <div class="fw-number">04</div>
+      <div class="fw-icon-box" style="background:rgba(255,79,109,0.1);">⚡</div>
+      <div class="fw-title">SWOT Analysis</div>
+      <div class="fw-sub">Kotler et al., 2019</div>
+      <div class="fw-desc">Strategic mapping of internal strengths and weaknesses alongside external opportunities and threats — applied per brand for comparative digital benchmarking.</div>
+    </div>
+    <div class="fw-card">
+      <div class="fw-number">05</div>
+      <div class="fw-icon-box" style="background:rgba(250,84,0,0.08);">🎯</div>
+      <div class="fw-title">OVP Analysis</div>
+      <div class="fw-sub">Chaffey & Ellis-Chadwick, 2019</div>
+      <div class="fw-desc">Online Value Proposition — assesses the unique digital value each brand delivers online through exclusivity, personalisation, community, and innovation pillars.</div>
+    </div>
+    <div class="fw-card">
+      <div class="fw-number">06</div>
+      <div class="fw-icon-box" style="background:rgba(0,163,255,0.08);">🔍</div>
+      <div class="fw-title">CX Principles</div>
+      <div class="fw-sub">Lemon & Verhoef, 2016</div>
+      <div class="fw-desc">Customer Experience — evaluates touchpoint consistency, content relevance, usability, and mobile responsiveness across the full digital customer journey.</div>
+    </div>
+  </div>
+
+  <!-- SCORES -->
+  <div class="divider" id="scores">
+    <div class="divider-line"></div>
+    <div class="divider-label">04 — Comparative Performance Scores</div>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="score-section">
+    <div class="score-header">
+      <div>
+        <div class="score-title">Digital Channel Performance Index</div>
+        <div class="score-subtitle">Based on framework analysis, tool benchmarks and academic criteria</div>
+      </div>
+      <div class="score-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--nike);"></div>Nike</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--adidas);"></div>Adidas</div>
+      </div>
+    </div>
+
+    <div class="score-criteria">
+      <div class="score-criterion">
+        <div class="criterion-label">
+          <span class="criterion-name">App Ecosystem Quality</span>
+          <span class="criterion-winner winner-nike">Nike leads</span>
+        </div>
+        <div class="bars-pair">
+          <div class="bar-row"><span class="bar-brand">Nike</span><div class="bar-track"><div class="bar-fill nike" style="width:90%;"></div></div><span class="bar-score">90</span></div>
+          <div class="bar-row"><span class="bar-brand">Adidas</span><div class="bar-track"><div class="bar-fill adidas" style="width:65%;"></div></div><span class="bar-score">65</span></div>
+        </div>
+      </div>
+
+      <div class="score-criterion">
+        <div class="criterion-label">
+          <span class="criterion-name">Website UX & e-Commerce</span>
+          <span class="criterion-winner winner-nike">Nike leads</span>
+        </div>
+        <div class="bars-pair">
+          <div class="bar-row"><span class="bar-brand">Nike</span><div class="bar-track"><div class="bar-fill nike" style="width:86%;"></div></div><span class="bar-score">86</span></div>
+          <div class="bar-row"><span class="bar-brand">Adidas</span><div class="bar-track"><div class="bar-fill adidas" style="width:74%;"></div></div><span class="bar-score">74</span></div>
+        </div>
+      </div>
+
+      <div class="score-criterion">
+        <div class="criterion-label">
+          <span class="criterion-name">Social Media Reach</span>
+          <span class="criterion-winner winner-nike">Nike leads</span>
+        </div>
+        <div class="bars-pair">
+          <div class="bar-row"><span class="bar-brand">Nike</span><div class="bar-track"><div class="bar-fill nike" style="width:92%;"></div></div><span class="bar-score">92</span></div>
+          <div class="bar-row"><span class="bar-brand">Adidas</span><div class="bar-track"><div class="bar-fill adidas" style="width:72%;"></div></div><span class="bar-score">72</span></div>
+        </div>
+      </div>
+
+      <div class="score-criterion">
+        <div class="criterion-label">
+          <span class="criterion-name">Sustainability & ESG Positioning</span>
+          <span class="criterion-winner winner-adidas">Adidas leads</span>
+        </div>
+        <div class="bars-pair">
+          <div class="bar-row"><span class="bar-brand">Nike</span><div class="bar-track"><div class="bar-fill nike" style="width:58%;"></div></div><span class="bar-score">58</span></div>
+          <div class="bar-row"><span class="bar-brand">Adidas</span><div class="bar-track"><div class="bar-fill adidas" style="width:88%;"></div></div><span class="bar-score">88</span></div>
+        </div>
+      </div>
+
+      <div class="score-criterion">
+        <div class="criterion-label">
+          <span class="criterion-name">Gen Z Cultural Relevance</span>
+          <span class="criterion-winner winner-adidas">Adidas leads</span>
+        </div>
+        <div class="bars-pair">
+          <div class="bar-row"><span class="bar-brand">Nike</span><div class="bar-track"><div class="bar-fill nike" style="width:66%;"></div></div><span class="bar-score">66</span></div>
+          <div class="bar-row"><span class="bar-brand">Adidas</span><div class="bar-track"><div class="bar-fill adidas" style="width:82%;"></div></div><span class="bar-score">82</span></div>
+        </div>
+      </div>
+
+      <div class="score-criterion">
+        <div class="criterion-label">
+          <span class="criterion-name">AI & Personalisation Engine</span>
+          <span class="criterion-winner winner-nike">Nike leads</span>
+        </div>
+        <div class="bars-pair">
+          <div class="bar-row"><span class="bar-brand">Nike</span><div class="bar-track"><div class="bar-fill nike" style="width:82%;"></div></div><span class="bar-score">82</span></div>
+          <div class="bar-row"><span class="bar-brand">Adidas</span><div class="bar-track"><div class="bar-fill adidas" style="width:70%;"></div></div><span class="bar-score">70</span></div>
+        </div>
+      </div>
+
+      <div class="score-criterion">
+        <div class="criterion-label">
+          <span class="criterion-name">AR / Immersive Innovation</span>
+          <span class="criterion-winner winner-adidas">Adidas leads</span>
+        </div>
+        <div class="bars-pair">
+          <div class="bar-row"><span class="bar-brand">Nike</span><div class="bar-track"><div class="bar-fill nike" style="width:68%;"></div></div><span class="bar-score">68</span></div>
+          <div class="bar-row"><span class="bar-brand">Adidas</span><div class="bar-track"><div class="bar-fill adidas" style="width:78%;"></div></div><span class="bar-score">78</span></div>
+        </div>
+      </div>
+
+      <div class="score-criterion">
+        <div class="criterion-label">
+          <span class="criterion-name">Community Engagement & UGC</span>
+          <span class="criterion-winner winner-tie">Close contest</span>
+        </div>
+        <div class="bars-pair">
+          <div class="bar-row"><span class="bar-brand">Nike</span><div class="bar-track"><div class="bar-fill nike" style="width:75%;"></div></div><span class="bar-score">75</span></div>
+          <div class="bar-row"><span class="bar-brand">Adidas</span><div class="bar-track"><div class="bar-fill adidas" style="width:76%;"></div></div><span class="bar-score">76</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SWOT -->
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-label">05 — SWOT Snapshot (Nike)</div>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="swot-grid">
+    <div class="swot-card">
+      <div class="swot-header">
+        <div class="swot-letter" style="background:rgba(141,190,85,0.12);color:#8DBE55;">S</div>
+        <div>
+          <div class="swot-title">Strengths</div>
+          <div class="swot-subtitle">Internal advantages</div>
+        </div>
+      </div>
+      <div class="swot-items">
+        <div class="swot-item">World-class app ecosystem (Nike App, SNKRS, NTC, NRC) with 4.8★ iOS rating</div>
+        <div class="swot-item">AI-powered Nike Fit sizing with AR — reduces returns and boosts purchase confidence</div>
+        <div class="swot-item">Geo-personalised homepage and product recommendations at scale</div>
+        <div class="swot-item">Over 40% DTC revenue — reducing reliance on third-party retail</div>
+        <div class="swot-item">Global athlete partnerships (Sam Kerr, LeBron James) driving aspirational brand equity</div>
+      </div>
+    </div>
+
+    <div class="swot-card">
+      <div class="swot-header">
+        <div class="swot-letter" style="background:rgba(255,79,109,0.12);color:#FF4F6D;">W</div>
+        <div>
+          <div class="swot-title">Weaknesses</div>
+          <div class="swot-subtitle">Internal gaps</div>
+        </div>
+      </div>
+      <div class="swot-items">
+        <div class="swot-item">AR/VR try-on features less developed compared to Adidas WebAR rollout</div>
+        <div class="swot-item">Influencer localisation weaker in niche and regional markets</div>
+        <div class="swot-item">App fragmentation risk as multiple platforms can dilute user experience</div>
+        <div class="swot-item">Sustainability messaging less prominent vs Adidas "End Plastic Waste" positioning</div>
+      </div>
+    </div>
+
+    <div class="swot-card">
+      <div class="swot-header">
+        <div class="swot-letter" style="background:rgba(212,240,76,0.08);color:var(--accent);">O</div>
+        <div>
+          <div class="swot-title">Opportunities</div>
+          <div class="swot-subtitle">External potential</div>
+        </div>
+      </div>
+      <div class="swot-items">
+        <div class="swot-item">Scale AI-driven personalisation engine beyond homepage to email, app flows, and push</div>
+        <div class="swot-item">Expand AR try-on to broader product catalogue (apparel, not just footwear)</div>
+        <div class="swot-item">Deepen TikTok and micro-influencer strategy to capture Gen Z at scale</div>
+        <div class="swot-item">Strengthen sustainability narrative to compete with Adidas' green brand equity</div>
+      </div>
+    </div>
+
+    <div class="swot-card">
+      <div class="swot-header">
+        <div class="swot-letter" style="background:rgba(250,84,0,0.1);color:var(--nike);">T</div>
+        <div>
+          <div class="swot-title">Threats</div>
+          <div class="swot-subtitle">External risks</div>
+        </div>
+      </div>
+      <div class="swot-items">
+        <div class="swot-item">Adidas rapidly closing the gap in personalisation and AI styling tools</div>
+        <div class="swot-item">Increasing digital advertising costs compress DTC margin efficiency</div>
+        <div class="swot-item">Sustainability pressure — consumers expect more from a brand of Nike's scale</div>
+        <div class="swot-item">App proliferation risk — multiple apps may fragment user loyalty vs unified Adidas app</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOOLS -->
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-label">06 — Research Tools Used</div>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="tools-row">
+    <div class="tool-chip">
+      <span class="tool-icon">🔍</span>
+      <div><div class="tool-name">SEMrush</div><span class="tool-type">SEO & Traffic Analysis</span></div>
+    </div>
+    <div class="tool-chip">
+      <span class="tool-icon">📊</span>
+      <div><div class="tool-name">SimilarWeb</div><span class="tool-type">Web Traffic Benchmarking</span></div>
+    </div>
+    <div class="tool-chip">
+      <span class="tool-icon">⭐</span>
+      <div><div class="tool-name">HubSpot Grader</div><span class="tool-type">Website Performance</span></div>
+    </div>
+    <div class="tool-chip">
+      <span class="tool-icon">🏗️</span>
+      <div><div class="tool-name">BuiltWith</div><span class="tool-type">Tech Stack Analysis</span></div>
+    </div>
+    <div class="tool-chip">
+      <span class="tool-icon">📱</span>
+      <div><div class="tool-name">App Store Reviews</div><span class="tool-type">MSQ Data Collection</span></div>
+    </div>
+    <div class="tool-chip">
+      <span class="tool-icon">🛒</span>
+      <div><div class="tool-name">Baymard Institute</div><span class="tool-type">UX Benchmarking</span></div>
+    </div>
+  </div>
+
+  <!-- RECOMMENDATIONS -->
+  <div class="divider" id="recs">
+    <div class="divider-line"></div>
+    <div class="divider-label">07 — Strategic Recommendations for Nike</div>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="recs">
+    <div class="rec-card">
+      <div class="rec-num">01</div>
+      <div>
+        <div class="rec-title">Deploy Cross-Platform AI Personalisation Engine</div>
+        <div class="rec-desc">Dynamically personalise homepages, product recommendations, email flows, and push notifications using Nike's existing AI and data infrastructure. Target a 15% increase in repeat purchase rate and 10% reduction in bounce rate within 6 months.</div>
+      </div>
+      <div class="rec-impact">
+        <div class="rec-impact-label">Target Impact</div>
+        <div class="rec-impact-val" style="color:var(--nike);">+15% RPR</div>
+      </div>
+    </div>
+
+    <div class="rec-card">
+      <div class="rec-num">02</div>
+      <div>
+        <div class="rec-title">Launch Gen Z UGC Movement on TikTok & Instagram</div>
+        <div class="rec-desc">Activate micro-influencers and community athletes through branded challenges and creator-driven campaigns. Targets: 10% growth in Gen Z followers and 25% improvement in engagement rate within 6 months, countering Adidas's strong TikTok presence.</div>
+      </div>
+      <div class="rec-impact">
+        <div class="rec-impact-label">Target Impact</div>
+        <div class="rec-impact-val" style="color:var(--accent);">+25% Engage</div>
+      </div>
+    </div>
+
+    <div class="rec-card">
+      <div class="rec-num">03</div>
+      <div>
+        <div class="rec-title">Expand AR Try-On Across Full Product Catalogue</div>
+        <div class="rec-desc">Scale Nike Fit's AR capabilities beyond footwear to apparel and accessories, and deploy WebAR on the website to close the gap with Adidas's AR Try-On advantage. Expected to reduce return rates and increase conversion on high-consideration items.</div>
+      </div>
+      <div class="rec-impact">
+        <div class="rec-impact-label">Target Impact</div>
+        <div class="rec-impact-val" style="color:var(--adidas);">−12% Returns</div>
+      </div>
+    </div>
+
+    <div class="rec-card">
+      <div class="rec-num">04</div>
+      <div>
+        <div class="rec-title">Strengthen Sustainability Digital Narrative</div>
+        <div class="rec-desc">Introduce sustainability product filters, green badges, and purpose-led content series across website and apps. Partner with Australian environmental initiatives to build authentic ESG positioning and counter Adidas's "End Plastic Waste" brand equity.</div>
+      </div>
+      <div class="rec-impact">
+        <div class="rec-impact-label">Target Impact</div>
+        <div class="rec-impact-val" style="color:var(--accent);">Brand Trust ↑</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONCLUSION -->
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-label">08 — Conclusion</div>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="conclusion">
+    <div class="conclusion-kicker">Final Assessment</div>
+    <p class="conclusion-text">
+      "Nike commands the digital performance landscape through superior app integration, personalisation infrastructure, and DTC momentum. Adidas challenges compellingly through emotional storytelling, sustainability depth, and Gen Z cultural fluency. Nike's path to sustained digital leadership lies not in defending its technical strengths — but in closing the authenticity and community gap with the next generation of consumers."
+    </p>
+  </div>
+
+
+
+</div>
+
+<footer>
+  <span class="footer-left">Nike vs Adidas — Digital Channel Analysis</span>
+  <span class="footer-right">Nike vs Adidas Digital Channel Analysis © 2025</span>
+</footer>
+
+</body>
+</html>
